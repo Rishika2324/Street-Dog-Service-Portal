@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - Street Dog Services</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 🌟 Header Section -->
+  <header>
+    <h2 class="logo">Street Dog Services</h2>
+    <nav class="navigation">
+      <a href="home.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+     
+    </nav>
+  </header>
+
+  <!-- 🌟 Welcome Section -->
+  <section class="welcome">
+    <h1>Welcome Back, <span id="userName">User</span>! 🐶</h1>
+    <p>We are so happy to have you here. Let’s make a difference in the lives of street dogs together! ❤️</p>
+  </section>
+
+  <!-- 🌟 Upload Dog Section -->
+  <section class="dog-upload">
+    <h2>Upload a Dog Photo for Adoption</h2>
+    <form id="dog-upload-form" enctype="multipart/form-data">
+      <input type="text" id="dogName" name="name" placeholder="Dog Name" required />
+      <input type="text" id="dogBreed" name="breed" placeholder="Breed" required />
+      <select id="dogGender" name="gender" required>
+        <option value="">Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <input type="number" id="dogAge" name="age" placeholder="Enter Age (in years)" min="0" max="30" required class="input-field" />
+      <input type="file" id="dogPhoto" name="image" accept="image/*" required />
+      <input type="hidden" id="location" name="location" />
+      <button type="submit">Upload</button>
+    </form>
+    <p id="upload-status"></p>
+  </section>
+
+  <!-- 🌟 Dogs Gallery Section -->
+  <section class="dogs-gallery">
+    <h2>Meet Our Dogs 🐕</h2>
+    <div class="gallery-grid" id="dogs-list">
+      <!-- Dog cards will appear here dynamically -->
+    </div>
+  </section>
+
+  <!-- 🌟 Recent Adoptions -->
+  <section class="adoptions">
+    <h2>Recent Adoptions 🏡</h2>
+    <div class="adoption-list">
+      <div class="dog-card">
+        <img src="https://placedog.net/400/300?id=10" alt="Dog" />
+        <p>Meet Bruno - Adopted by Anjali! 🎉</p>
+      </div>
+      <div class="dog-card">
+        <img src="https://placedog.net/400/300?id=11" alt="Dog" />
+        <p>Meet Lucy - Adopted by Rohan! 🎉</p>
+      </div>
+      <div class="dog-card">
+        <img src="https://placedog.net/400/300?id=12" alt="Dog" />
+        <p>Meet Max - Adopted by Priya! 🎉</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌟 Footer -->
+  <footer>
+    <div class="footer-content">
+      <h2>Donate with Confidence ❤️</h2>
+      <p>Your donations help us provide medical care, food, and shelter to street dogs.</p>
+      <button class="donate-button">Donate Now</button>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="social-links">
+      <a href="#"><img src="facebook-icon.png" alt="Facebook" /></a>
+      <a href="#"><img src="twitter-icon.png" alt="Twitter" /></a>
+      <a href="#"><img src="instagram-icon.png" alt="Instagram" /></a>
+    </div>
+  </footer>
+
+  <!-- 🌟 Scripts -->
+  <script>
+    // Fetch and display dogs
+    async function loadDogs() {
+      try {
+        const res = await fetch('http://localhost:5000/api/dogs');
+        const dogs = await res.json();
+        const dogsList = document.getElementById('dogs-list');
+        dogsList.innerHTML = '';
+
+        if (dogs.length === 0) {
+          dogsList.innerHTML = '<p>No dogs available at the moment.</p>';
+          return;
+        }
+
+        dogs.forEach(dog => {
+          const dogCard = document.createElement('div');
+          dogCard.className = 'dog-card';
+          dogCard.innerHTML = `
+            <img src="${dog.imageUrl}" alt="${dog.name}" />
+            <h3>${dog.name}</h3>
+            <p><strong>Breed:</strong> ${dog.breed}</p>
+            <p><strong>Location:</strong> ${dog.location}</p>
+            <p><strong>Age:</strong> ${dog.age} year(s)</p>
+          `;
+          dogsList.appendChild(dogCard);
+        });
+      } catch (error) {
+        console.error('Error loading dogs:', error);
+        document.getElementById('dogs-list').innerHTML = '<p>Failed to load dogs.</p>';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadDogs);
+  </script>
+<script>
+// Username
+document.getElementById('userName').textContent = localStorage.getItem('userName') || 'User';
+
+// Get location
+function setLocation() {
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const lat = position.coords.latitude.toFixed(4);
+const lon = position.coords.longitude.toFixed(4);
+document.getElementById('location').value = `Lat:${lat}, Lon:${lon}`;
+},
+() => {
+document.getElementById('location').value = 'Location unavailable';
+}
+);
+} else {
+document.getElementById('location').value = 'Geolocation not supported';
+}
+}
+setLocation();
+
+// Upload form
+document.getElementById('dog-upload-form').addEventListener('submit', async (e) => {
+e.preventDefault();
+const form = e.target;
+const formData = new FormData(form);
+
+try {
+const res = await fetch('http://localhost:5000/api/dogs/upload', {
+method: 'POST',
+body: formData,
+});
+const data = await res.json();
+const status = document.getElementById('upload-status');
+
+if (res.ok) {
+status.textContent = '✅ Dog uploaded successfully!';
+form.reset();
+setLocation();
+loadDogs(); // Refresh gallery
+} else {
+status.textContent = `❌ Upload failed: ${data.message || 'Unknown error'}`;
+}
+} catch (error) {
+document.getElementById('upload-status').textContent = `❌ Upload error: ${error.message}`;
+}
+});
+</script>
+
+</body>
+</html>

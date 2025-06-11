@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services - Street Dog Services</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #fefefe;
+    }
+
+    header {
+      background-color:  rgba(255, 69, 0, 0.8);
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navigation a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+  
+    .services-section {
+      padding: 60px 20px;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b'); /* dog background */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .services-section h2 {
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .service-card {
+      background-color: #f7f7f7;
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: scale(1.05);
+    }
+
+    .service-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: rgba(255, 69, 0, 0.8);;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+      .services-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h2 class="logo">Street Dog Services</h2>
+    <nav class="navigation">
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="services-hero">
+    <h1>Our Services</h1>
+    <p>Empowering paws and people. From rescue to rehome, we do it all. 🐾</p>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section">
+    <h2>What We Offer</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Rescue Icon" />
+        <h3>Stray Dog Rescue</h3>
+        <p>We respond to rescue calls and help injured or abandoned street dogs.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3666/3666776.png" alt="Medical Icon" />
+        <h3>Medical Treatment</h3>
+        <p>We provide vaccinations, surgeries, and care for sick or injured dogs.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3523/3523063.png" alt="Adoption Icon" />
+        <h3>Adoption Assistance</h3>
+        <p>We connect rescued dogs with loving homes and ensure smooth adoptions.</p>
+      </div>
+
+      <div class="service-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1785/1785031.png" alt="Feeding Icon" />
+        <h3>Feeding Programs</h3>
+        <p>Daily street feeding drives to support stray dogs with proper nutrition.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Street Dog Services | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
+
+

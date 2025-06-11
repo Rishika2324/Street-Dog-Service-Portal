@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Street Dog Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color:  rgba(255, 69, 0, 0.8);;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navigation a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .contact-hero {
+      background-image: url('https://images.unsplash.com/photo-1612531914056-f0e0fc5ff18e?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .contact-section {
+      background-image: url('https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 60px 20px;
+      color: #fff;
+      position: relative;
+    }
+
+    .contact-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* dark overlay */
+      z-index: 0;
+    }
+
+    .contact-info, .contact-form {
+      width: 100%;
+      max-width: 450px;
+      margin: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-info h2, .contact-form h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      line-height: 1.8;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, textarea {
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #e67600;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .contact-section {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+     <!-- Header -->
+  <header>
+    <h2 class="logo">Street Dog Services</h2>
+    <nav class="navigation">
+      <a href="home.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+<!-- Hero -->
+<section class="contact-hero">
+    <h1>Contact Us</h1>
+    <p>Have questions or want to get involved? We’d love to hear from you!</p>
+  </section>
+
+  <!-- Contact Info + Form -->
+  <section class="contact-section">
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2>Get In Touch</h2>
+      <p><strong>Email:</strong> support@streetdogservice.com</p>
+      <p><strong>Phone:</strong> +91 9876543210</p>
+      <p><strong>Address:</strong> 123, Stray Dog Street, India</p>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Street Dog Services | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const response = await fetch('http://localhost:5000/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      const result = await response.json();
+      alert(result.message);
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+</body>
+</html>
