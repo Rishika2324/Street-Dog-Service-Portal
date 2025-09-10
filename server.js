@@ -12,12 +12,45 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Serve static files (HTML, CSS, JS, images)
+app.use(express.static(path.join(__dirname)));
+
 // Serve uploaded images folder statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Routes for HTML pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'home.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+app.get('/services', (req, res) => {
+  res.sendFile(path.join(__dirname, 'services.html'));
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'register.html'));
+});
+
 // Connect to MongoDB
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/street-dog-service';
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(mongoURI)
   .then(() => console.log('✅ MongoDB Connected'))
   .catch((err) => console.log('❌ MongoDB Connection Error:', err));
 
