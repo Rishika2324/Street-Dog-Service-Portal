@@ -1,0 +1,1 @@
+A full-stack web application aimed at improving the lives of stray dogs through a centralized portal for reporting, adoption, medical check-ups, and volunteer services. Built using Node.js, Express.js, MongoDB, HTML, CSS, and JavaScript, this platform enables users to contribute to animal welfare by taking meaningful action in their community.
