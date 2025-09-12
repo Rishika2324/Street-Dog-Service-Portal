@@ -11,6 +11,7 @@ body {
     overflow-x: hidden; /* Prevents horizontal scroll, but allows vertical scrolling */
     overflow-y: auto; /* Enables vertical scrolling */
     position: relative;
+    min-height: 100vh;
 }
 
 /* 🌟 Background Image Slider */
@@ -20,6 +21,11 @@ body {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
+}
+
+/* 🌟 Generic page wrapper to avoid overlap with fixed header */
+.page {
+    padding-top: 80px; /* header height compensation */
 }
 
 .slider img {
@@ -74,25 +80,21 @@ header {
 
 /* 🌟 Hero Section */
 .hero {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    width: 70%;
-    max-width: 700px;
-    transform: translate(-50%, -50%);
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     color: white;
-    /* background: rgba(0, 0, 0, 0.6); */
     padding: 20px;
-    border-radius: 90px;
-    margin-top: 25%;
 }
 
 .hero h1 {
     font-size: 3em;
-    margin-bottom: 10px;
-    margin-top: 30px;
-    /* text-decoration: underline; */
+    margin: 0 0 10px 0;
     text-decoration-color: bisque;
     color: oldlace;
 }
@@ -100,7 +102,7 @@ header {
 .hero p {
     font-size: 1.2em;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 16px;
 }
 
 .cta-button {
